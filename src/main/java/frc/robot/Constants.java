@@ -20,6 +20,11 @@ public final class Constants {
 
     public static final class DriveConstants {
 
+        public static final Translation2d m_frontLeftLocation = new Translation2d(0.381, 0.381);
+        public static final Translation2d m_frontRightLocation = new Translation2d(0.381, -0.381);
+        public static final Translation2d m_backLeftLocation = new Translation2d(-0.381, 0.381);
+        public static final Translation2d m_backRightLocation = new Translation2d(-0.381, -0.381);
+
         public static final double kTrackWidth = Units.inchesToMeters(21);
         // Distance between right and left wheels
         public static final double kWheelBase = Units.inchesToMeters(25.5);
@@ -29,6 +34,9 @@ public final class Constants {
                 new Translation2d(kWheelBase / 2, kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, -kTrackWidth / 2),
                 new Translation2d(-kWheelBase / 2, kTrackWidth / 2));
+
+        public static final SwerveDriveKinematics m_kinematics = new SwerveDriveKinematics(
+                m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
 
         public static final int kFrontLeftDriveMotorPort = 8;
         public static final int kBackLeftDriveMotorPort = 2;
