@@ -24,7 +24,6 @@ import frc.robot.subsystems.SwerveSubsystem;
 public class RobotContainer {
 
         private final SwerveSubsystem swerveSubsystem = new SwerveSubsystem();
-        //public final XboxController controller = new XboxController(0);
 
         private final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
 

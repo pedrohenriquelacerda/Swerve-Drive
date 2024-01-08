@@ -21,7 +21,6 @@ public class SwerveModule {
     private final TalonFX driveMotor;
     private final CANSparkMax turningMotor;
 
-    private final TalonFX driveEncoder;
     private final CANEncoder turningEncoder;
 
     private final PIDController turningPidController;
@@ -43,7 +42,6 @@ public class SwerveModule {
         driveMotor.setInverted(driveMotorReversed);
         turningMotor.setInverted(turningMotorReversed);
 
-        driveEncoder = driveMotor;
         turningEncoder = turningMotor.getEncoder();
 
         // driveEncoder.setPositionConversionFactor(ModuleConstants.kDriveEncoderRot2Meter);
@@ -59,7 +57,7 @@ public class SwerveModule {
     }
 
     public double getDrivePosition() {
-        return driveEncoder.getSelectedSensorPosition();
+        return driveMotor.getSelectedSensorPosition();
     }
 
     public double getTurningPosition() {
@@ -67,7 +65,7 @@ public class SwerveModule {
     }
 
     public double getDriveVelocity() {
-        return driveEncoder.getSelectedSensorVelocity();
+        return driveMotor.getSelectedSensorVelocity();
     }
 
     public double getTurningVelocity() {
@@ -82,7 +80,7 @@ public class SwerveModule {
     }
 
     public void resetEncoders() {
-        driveEncoder.setSelectedSensorPosition(0);
+        driveMotor.setSelectedSensorPosition(0);
         turningEncoder.setPosition(getAbsoluteEncoderRad());
     }
 
@@ -104,7 +102,7 @@ public class SwerveModule {
 
     public SwerveModulePosition getPosition() {
         return new SwerveModulePosition(
-                driveEncoder.getSelectedSensorPosition(), new Rotation2d(turningEncoder.getPosition()));
+            driveMotor.getSelectedSensorPosition(), new Rotation2d(turningEncoder.getPosition()));
     }
 
     public void stop() {
