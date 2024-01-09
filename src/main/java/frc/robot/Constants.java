@@ -39,7 +39,7 @@ public final class Constants {
                 m_frontLeftLocation, m_frontRightLocation, m_backLeftLocation, m_backRightLocation);
 
         public static final int kFrontLeftDriveMotorPort = 8;
-        public static final int kBackLeftDriveMotorPort = 2;
+        public static final int kBackLeftDriveMotorPort = 0;
         public static final int kFrontRightDriveMotorPort = 6;
         public static final int kBackRightDriveMotorPort = 4;
 

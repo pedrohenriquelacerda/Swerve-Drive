@@ -2,6 +2,7 @@ package frc.robot;
 
 import java.util.List;
 import edu.wpi.first.wpilibj.XboxController;
+import edu.wpi.first.wpilibj.XboxController.Button;
 import edu.wpi.first.math.controller.PIDController;
 import edu.wpi.first.math.controller.ProfiledPIDController;
 import edu.wpi.first.math.geometry.Pose2d;
@@ -19,6 +20,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.SwerveJoystickCmd;
+import frc.robot.commands.SwerveTurn;
 import frc.robot.subsystems.SwerveSubsystem;
 
 public class RobotContainer {
@@ -28,21 +30,25 @@ public class RobotContainer {
         private final XboxController driverJoytick = new XboxController(OIConstants.kDriverControllerPort);
 
         public RobotContainer() {
-                swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
-                                swerveSubsystem,
-                                () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
-                                () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
-                                () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
-                                () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
+                // swerveSubsystem.setDefaultCommand(new SwerveJoystickCmd(
+                //                 swerveSubsystem,
+                //                 () -> -driverJoytick.getRawAxis(OIConstants.kDriverYAxis),
+                //                 () -> driverJoytick.getRawAxis(OIConstants.kDriverXAxis),
+                //                 () -> driverJoytick.getRawAxis(OIConstants.kDriverRotAxis),
+                //                 () -> !driverJoytick.getRawButton(OIConstants.kDriverFieldOrientedButtonIdx)));
 
                 configureButtonBindings();
         }
 
         private void configureButtonBindings() {
-        
+                
                 new JoystickButton(driverJoytick, 2).whenPressed(() -> swerveSubsystem.zeroHeading());
 
+                new JoystickButton(driverJoytick, Button.kRightBumper.value).whileTrue(new SwerveTurn(swerveSubsystem));
+
         }
+
+
 
         public Command getAutonomousCommand() {
                 // 1. Create trajectory settings

@@ -30,7 +30,7 @@ public class SwerveSubsystem extends SubsystemBase {
             DriveConstants.kFrontRightDriveAbsoluteEncoderPort,
             DriveConstants.kFrontRightDriveAbsoluteEncoderOffsetRad,
             DriveConstants.kFrontRightDriveAbsoluteEncoderReversed);
-
+// Testes 
     private final SwerveModule backLeft = new SwerveModule(
             DriveConstants.kBackLeftDriveMotorPort,
             DriveConstants.kBackLeftTurningMotorPort,
@@ -85,7 +85,7 @@ public class SwerveSubsystem extends SubsystemBase {
     }
 
     public void resetOdometry(Pose2d pose) {
-        // odometer.resetPosition(pose, getRotation2d());
+        //odometer.resetPosition(pose, getRotation2d());
         odometer.resetPosition(getRotation2d(), null, pose);
     }
 
@@ -103,6 +103,7 @@ public class SwerveSubsystem extends SubsystemBase {
 
         SmartDashboard.putNumber("Robot Heading", getHeading());
         SmartDashboard.putString("Robot Location", getPose().getTranslation().toString());
+        SmartDashboard.putNumber("Robot Gyro", gyro.getAngle());
     }
 
     public void stopModules() {
@@ -119,5 +120,22 @@ public class SwerveSubsystem extends SubsystemBase {
         backLeft.setDesiredState(desiredStates[2]);
         backRight.setDesiredState(desiredStates[3]);
     }
+
+    public SwerveModule getBackLeftSwerveModule() {
+        return backLeft;
+    }
+
+    public SwerveModule getBackRightSwerveModule() {
+        return backRight;
+    }
+
+    public SwerveModule getFrontLeftSwerveModule() {
+        return frontLeft;
+    }
+
+    public SwerveModule getFrontRightSwerveModule() {
+        return frontRight;
+    }
+
 
 }
