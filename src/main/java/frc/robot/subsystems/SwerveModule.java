@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonFX;
 
 import com.revrobotics.CANEncoder;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.RobotController;
@@ -21,7 +22,7 @@ public class SwerveModule {
     private final TalonFX driveMotor;
     private final CANSparkMax turningMotor;
 
-    private final CANEncoder turningEncoder;
+    private final RelativeEncoder turningEncoder;
 
     private final PIDController turningPidController;
 
@@ -73,7 +74,7 @@ public class SwerveModule {
     }
 
     public double getAbsoluteEncoderRad() {
-        double angle = absoluteEncoder.getVoltage() / RobotController.getVoltage5V();
+        double angle = 2 / RobotController.getVoltage5V();
         angle *= 2.0 * Math.PI;
         angle -= absoluteEncoderOffsetRad;
         return angle * (absoluteEncoderReversed ? -1.0 : 1.0);
@@ -98,6 +99,8 @@ public class SwerveModule {
                 state.speedMetersPerSecond / DriveConstants.kPhysicalMaxSpeedMetersPerSecond);
         turningMotor.set(turningPidController.calculate(getTurningPosition(), state.angle.getRadians()));
         SmartDashboard.putString("Swerve[" + absoluteEncoder.getChannel() + "] state", state.toString());
+        SmartDashboard.putNumber("Swerve[" + absoluteEncoder.getChannel() + "] Absolute Encoder", absoluteEncoder.getVoltage());
+        SmartDashboard.putNumber("Swerve[" + absoluteEncoder.getChannel() + "] Encoder NEO", turningEncoder.getPosition());
     }
 
     public SwerveModulePosition getPosition() {
